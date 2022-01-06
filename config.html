@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Config Page</title>
+</head>
+<style>
+    html {
+        font-family: Arial;
+        text-align: center;
+        vertical-align: middle;
+      }
+    input{
+        margin:1rem;
+        border-radius: 3px;
+        font-size: 1.5rem;
+        
+    }
+    .form{
+        display: grid;
+        grid-template-columns: auto auto auto;
+        margin-top: 15%;
+    }
+    
+    .button {
+        background-color: #54aae4; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 20px;
+        font-weight: bold;
+      }
+      
+</style>
+
+<body>
+    <h1> Configuration page </h1>
+	<br>
+    <form action="/SaveConfig">
+        <div>
+        <div>
+            <label>Minimum Temperature</label><br>
+            <input id="minTemp" type="number" id="minTemp" name="minTemp"><br>
+            <label>Maximum Temperature</label><br>
+            <input id="maxTemp" type="number" id="maxTemp" name="maxTemp"><br>
+        </div>
+	<br>
+        <div>
+            <label>Minimum Humidity</label><br>
+            <input id="minHumid" type="number" id="minHumidity" name="minHumidity"><br>
+            <label>Maximum Humidity</label><br>
+            <input id="maxHumid" type="number" id="maxHumidity" name="maxHumidity"><br>
+        </div>
+	<br>
+        <div>
+            <label>Minimum Moisture</label><br>
+            <input id="minMoist" type="number" id="minMoisture" name="minMoisture"><br>
+            <label>Maximum Moisture</label><br>
+            <input id="maxMoist" type="number" id="maxMoisture" name="maxMoisture"><br>
+        </div>
+    </div>
+        <input class="button" type="submit" value="Save" onclick="preventDefault(); SaveConfig()" ><br>
+    </form>
+</body>
+
+<script>
+
+
+var xmlhttp = new XMLHttpRequest();
+var minTemp = document.getElementById("minTemp")
+var maxTemp = document.getElementById("maxTemp")
+var minHumid = document.getElementById("minHumid")
+var maxHumid = document.getElementById("maxHumid")
+var minMoist = document.getElementById("minMoist")
+var maxMoist = document.getElementById("maxMoist")
+xmlhttp.onreadystatechange= function(){
+    if (this.readyState == 4 && this.status == 200) {
+        
+        
+
+        minTemp.value=this.responseText.split(" ")[0];
+        maxTemp.value=this.responseText.split(" ")[1];
+        minHumid.value=this.responseText.split(" ")[2];
+        maxHumid.value=this.responseText.split(" ")[3];
+        minMoist.value=this.responseText.split(" ")[4];
+        maxMoist.value=this.responseText.split(" ")[5];
+    }
+};
+xmlhttp.open("GET","/SendParams",true);
+xmlhttp.send();
+
+
+
+
+
+    
+</script>
+
+</html>

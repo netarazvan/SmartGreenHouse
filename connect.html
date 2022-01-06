@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Connect Page</title>
+</head>
+<style>
+    html {
+        font-family: Arial;
+        text-align: center;
+        vertical-align: middle;
+      }
+    input{
+        margin:1rem;
+        border-radius: 3px;
+        font-size: 1.5rem;
+        
+    }
+    .button {
+        background-color: #54aae4; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 20px;
+        font-weight: bold;
+      }
+      
+</style>
+
+<body>
+	<h1> Connect to a new network</h1>
+    <form action="/WifiCredentials">
+        <input placeholder="SSID" type="text" id="ssid" name="ssid"><br>
+        <input placeholder="Pass" type="password" id="pass" name="pass"><br>
+        <input class="button" type="submit" value="Connect" onclick="preventDefault(); WifiCredentials()" ><br>
+    </form>
+</body>
+<script>
+
+function WifiCredentials() {
+      var xhttp = new XMLHttpRequest();
+      xhttp.open("GET", "/WifiCredentials", true);
+      xhttp.send();
+    }
+    
+</script>
+
+</html>

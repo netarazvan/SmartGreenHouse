@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous"
+    />
+    <style>
+      html {
+        font-family: Arial;
+        display: inline-block;
+        margin: 0px auto;
+        text-align: center;
+      }
+      h2 {
+        font-size: 3rem;
+      }
+      p {
+        font-size: 3rem;
+      }
+      .units {
+        font-size: 1.2rem;
+      }
+      .dht-labels {
+        font-size: 1.5rem;
+        vertical-align: middle;
+        padding-bottom: 15px;
+      }
+      .button {
+        background-color: #54aae4; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 20px;
+        font-weight: bold;
+      }
+      span {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Greenhouse Control</h2>
+    <p>
+      <i class="fas fa-thermometer-half" style="color: #059e8a"></i>
+      <span class="dht-labels">Temperature:</span>
+      <span id="temperature">%TEMPERATURE%</span>
+      <sup class="units">&deg;C</sup>
+    </p>
+    <p>
+        <i class="fas fa-cloud" style="color: #059e8a"></i>
+        <span class="dht-labels">Humidity:</span>
+        <span id="humidity">%HUMIDITY%</span>
+        <span class="units">%</span>
+      </p>
+    <p>
+      <i class="fas fa-tint" style="color: #00add6"></i>
+      <span class="dht-labels">Moisture:</span>
+      <span id="moisture">%MOIST%</span>
+      <span id="moisture">%</span>
+    </p>
+    <p>
+      <button type="button" class="button" onclick="TogRel();">Spray</button>
+    </p>
+  </body>
+  <script>
+    function TogRel() {
+      var xhttp = new XMLHttpRequest();
+      xhttp.open("GET", "/TogRel", true);
+      xhttp.send();
+    }
+
+    setInterval(function () {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById("temperature").innerHTML = this.responseText;
+        }
+      };
+      xhttp.open("GET", "/temperature", true);
+      xhttp.send();
+    }, 2000);
+
+    setInterval(function () {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById("humidity").innerHTML = this.responseText;
+        }
+      };
+      xhttp.open("GET", "/humidity", true);
+      xhttp.send();
+    }, 2000);
+
+    setInterval(function () {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById("moisture").innerHTML = this.responseText;
+        }
+      };
+      xhttp.open("GET", "/moisture", true);
+      xhttp.send();
+    }, 2000);
+  </script>
+</html>
